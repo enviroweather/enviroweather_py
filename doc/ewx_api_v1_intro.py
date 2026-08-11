@@ -1,3 +1,9 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo>=0.23.16",
+# ]
+# ///
 import marimo
 
 __generated_with = "0.23.16"
@@ -57,6 +63,26 @@ def _(mo):
 
 
 @app.cell
+def _():
+    # Default environment file
+    default_ewx_env_json = """{
+      "production": {
+        "api_url": "https://api.enviroweather.msu.edu/ewx-api/api",
+        "rm_api_url": "https://api.enviroweather.msu.edu/rm-api/api"
+      },
+      "staging": {
+        "api_url": "https://mcrp-dev.geo.msu.edu/ewx/ewx-api/api",
+        "rm_api_url": "https://mcrp-dev.geo.msu.edu/ewx/rm-api/api"
+      },
+      "development": {
+        "api_url": "https://mcrp-dev.geo.msu.edu/tma/ewx/ewx-api/api",
+        "rmapi_url": "https://mcrp-dev.geo.msu.edu/tma/ewx/rm-api/api"
+      }
+    }"""
+    return (default_ewx_env_json,)
+
+
+@app.cell
 def _(mo):
     # could have a json environment file selector here
     json_env_file_upload = mo.ui.file(kind="button")
@@ -65,13 +91,14 @@ def _(mo):
 
 
 @app.cell
-def _(json, json_env_file_upload):
+def _(default_ewx_env_json, json, json_env_file_upload):
     if json_env_file_upload.name(0):   
         ewx_env_json:str = json_env_file_upload.contents().decode('utf8')
-        ewx_env_dict:dict[str, str] = json.loads(ewx_env_json)
-        environment_names = list(ewx_env_dict.keys())
+        ewx_env_dict:dict[str, str] = json.loads(ewx_env_json)    
     else:
-        pass
+        ewx_env_dict:dict[str, str] = json.loads(default_ewx_env_json)
+
+    environment_names = list(ewx_env_dict.keys())
     return environment_names, ewx_env_dict
 
 
@@ -80,12 +107,6 @@ def _(environment_names, mo):
     mo.md(rf"""
     The file has the following environments in it: {environment_names}
     """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(ewx_env_dict: dict[str, str]):
-    ewx_env_dict
     return
 
 
@@ -196,21 +217,12 @@ def _(token_response):
     return (anonymous_token,)
 
 
-@app.cell
-def _():
-    # # save this to the .env file for use for last
-    # # add code to only run if anonymous_token is set, or not run at all
-    # with open('.env', 'a') as env_file:
-    #     env_file.write(f"token={anonymous_token}\n")
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ### Preserve the token for this session
 
-    For all future requests, the token needs to be included as a 'header' field
+    For requests in this notebook, the token needs to be included as a 'header' field
 
     `headers = {"Authorization": "Bearer TOKEN_FROM_ABOVE"}`
 
@@ -341,7 +353,7 @@ def _(active_station_list, mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Epilogue
+    ## Epilogue
 
     - Authors: Patrick Bills, Tracy Aichele
     - Last Major Update: August 2026
