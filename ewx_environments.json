@@ -1,0 +1,15 @@
+{
+  "production": {
+    "api_url": "https://api.enviroweather.msu.edu/ewx-api/api",
+    "rm_api_url": "https://api.enviroweather.msu.edu/rm-api/api"  
+  },
+  "staging": {
+    "api_url": "https://mcrp-dev.geo.msu.edu/ewx/ewx-api/api",
+    "rm_api_url": "https://mcrp-dev.geo.msu.edu/ewx/rm-api/api"    
+
+  },
+  "development": {
+    "api_url": "https://mcrp-dev.geo.msu.edu/tma/ewx/ewx-api/api",
+    "rmapi_url": "https://mcrp-dev.geo.msu.edu/tma/ewx/rm-api/api"    
+  }
+}
