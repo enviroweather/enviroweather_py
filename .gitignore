@@ -11,3 +11,7 @@ wheels/
 
 # private config
 .env
+
+# marimo
+doc/__marimo__/
+doc/marimo_saved_/*
