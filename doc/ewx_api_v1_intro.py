@@ -2,8 +2,11 @@
 # requires-python = ">=3.12"
 # dependencies = [
 #     "marimo>=0.23.16",
+#     "pandas>=3.0.5",
+#     "requests>=2.34.2",
 # ]
 # ///
+
 import marimo
 
 __generated_with = "0.23.16"
@@ -110,11 +113,16 @@ def _(environment_names, mo):
     return
 
 
+@app.cell
+def _(mo):
+    mo.md(r"""
+    Optionally select an environment from the configuration file.  The default is 'production', which is our public server used by our web application and others
+    """)
+    return
+
+
 @app.cell(hide_code=True)
 def _(environment_names, mo):
-    # read in json file into dict
-    # ewx_env_settings = json.loads('ewx_environments.json')
-    # ewx_envs = list(ewx_env_settings.keys()) # get key to use in dropdown
     env_key_selector = mo.ui.dropdown(options=environment_names, label="choose environment")
     env_key_selector
     return (env_key_selector,)
@@ -122,7 +130,11 @@ def _(environment_names, mo):
 
 @app.cell
 def _(env_key_selector, ewx_env_dict: dict[str, str]):
-    ewx_env = env_key_selector.selected_key
+    if env_key_selector.selected_key:
+        ewx_env = env_key_selector.selected_key
+    else:
+        ewx_env = 'production'
+    
     api_url = ewx_env_dict[ewx_env]["api_url"]
     rm_api_url = ewx_env_dict[ewx_env]["rm_api_url"]
     return api_url, ewx_env, rm_api_url
