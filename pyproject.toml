@@ -1,19 +1,12 @@
 [project]
-name = "enviroweather_py"
+name = "enviroweather-py"
 version = "0.1.0"
 description = "Documentation and demonstration of how to use The Enviroweather APIs in Python"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "marimo>=0.23.16",
+    "openlayers>=0.1.6",
     "pandas>=3.0.5",
     "requests>=2.34.2",
 ]
-
-[build-system]
-requires = ["uv_build>=0.12.3,<0.13"]
-build-backend = "uv_build"
-
-[tool.uv.build-backend]
-module-name = "enviroweather_py"
-module-root = "src"

@@ -134,7 +134,7 @@ def _(env_key_selector, ewx_env_dict: dict[str, str]):
         ewx_env = env_key_selector.selected_key
     else:
         ewx_env = 'production'
-    
+
     api_url = ewx_env_dict[ewx_env]["api_url"]
     rm_api_url = ewx_env_dict[ewx_env]["rm_api_url"]
     return api_url, ewx_env, rm_api_url
