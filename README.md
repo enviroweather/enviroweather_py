@@ -1,5 +1,13 @@
 # Enviroweather API Documentation and Python Package
 
+## **THIS PROJECT IS SUSPENDED IN FAVOR OF DIFFERENT APPROACH**
+
+for new documentation approach, please see https://gitlab.msu.edu/Enviroweather/enviroweather_api_documentation
+
+---- 
+
+*previous readme*
+
 [Enviroweather](https://enviroweather.msu.edu) is a sustainable weather-based information system that helps users
 make pest, plant production, and natural resource management decisions in Michigan, hosted by Michigan State Unversity, 
 led by Jeff Andresen, Professor of Meteorology/Climatology in the Department of Geography, the  State Climatologist for Michigan, 
